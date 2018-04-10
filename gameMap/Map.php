@@ -83,24 +83,28 @@ Class Map
      */
     public function fillRandomEntity(Player $players, array $types)
     {
+        //Loops all game map
         for ($x = 0; $x <= $this->xLength; $x++) {
             for ($y = 0; $y <= $this->yLength; $y++) {
                 $cell = $this->table[$x][$y];
 
+                //Loop all Units and Bases
                 foreach ($types as $type) {
+                    // Get random 1/4 and check compatible landscape and $type
                     if (rand(0,4) == 0 and $type->canCompatible($cell->getLandscape()) ) {
 
-                        if ( empty($cell->getEntity()) ) {
+                        if ( empty($cell->getEntity()) ) { //Cell is free add unite
                             $cell->addEntity(new Entity($players,$type));
-                        } else {
+                        } else { //Cell already catch another gamer
                             $canAttack = false;
                             foreach ($cell->getEntity() as $entity) {
+                                //Check canAttack
                                 if ($entity->player == $players || $type->canAttack($entity->entity) ) {
                                     $canAttack = true;
                                     break;
                                 }
                             }
-                            if (!$canAttack){
+                            if (!$canAttack){ //if ok add Entity
                                 $cell->addEntity (new Entity($players,$type));
                             }
                         }
