@@ -54,6 +54,18 @@ $map->fillRandomEntity($player02, [$technics, $human, $airplanes, $base]);
 //draw Map
 $map->drawing();
 
+//Draw annotation
+echo '<br>';
+$color = $player01->getColor();
+echo "<$color>" . $player01->getDescription() . "</$color>";
+echo '<br>';
+$color = $player02->getColor();
+echo "<$color>" . $player02->getDescription() . "</$color>";
+
+$printObjects = ['mountains','water','swamp','plain','technics','human','airplanes','base'];
+foreach ($printObjects as $object) {
+    echo '<br>'.get_class($$object).' '.$$object->getVisualisation().'-'.$$object->getDescription();
+}
 
 ?>
 
